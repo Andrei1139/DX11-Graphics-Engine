@@ -3,7 +3,6 @@
 #include <DirectXMath.h>
 #include <QApplication>
 #include <QWidget>
-#include <filesystem>
 #include <windows.h>
 
 class GraphicsEngine {
