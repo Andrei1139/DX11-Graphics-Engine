@@ -6,7 +6,10 @@
 Renderer::Renderer(const QWindow& window, int width, int height): engine(window, width, height) {}
 
 void Renderer::render() {
-    engine.fillScreen(1, 0, 0);
+    static float r = 0;
+    engine.fillScreen(r / 1000.0, 0, 0);
     engine.display();
+    ++r;
+    if (r == 1000) r = 0;
 }
 
