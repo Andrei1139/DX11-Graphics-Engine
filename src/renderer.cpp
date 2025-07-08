@@ -2,14 +2,21 @@
 #include <minwindef.h>
 #include <QWindow>
 #include "renderer.hpp"
+#include "graphicsEngine.hpp"
 
-Renderer::Renderer(const QWindow& window, int width, int height): engine(window, width, height) {}
+Renderer::Renderer(const QWindow& window, int width, int height, Camera &camera) {
+    engine = std::make_unique<GraphicsEngine>(window, width, height, camera);
+    Triangle triangle;
+    triangles.push_back(triangle);
+}
 
 void Renderer::render() {
-    static float r = 0;
-    engine.fillScreen(r / 1000.0, 0, 0);
-    engine.display();
-    ++r;
-    if (r == 1000) r = 0;
+    engine->refreshPipeline();
+    engine->display();
+    engine->reset();
+}
+
+void Renderer::drawObject(Triangle &triangle) {
+    engine->addTriangle(triangle);
 }
 
